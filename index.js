@@ -30,14 +30,18 @@ class Game {
     return hmac.digest("hex");
   }
 
+  getRandomMove() {
+    const randomIndex = crypto.randomInt(0, this.moves.length);
+    return this.moves[randomIndex];
+  }
+
   play(userMove) {
     if (!this.moves.includes(userMove)) {
       console.log("Invalid move. Available moves:", this.moves.join(", "));
       return;
     }
 
-    const computerMove =
-      this.moves[Math.floor(Math.random() * this.moves.length)];
+    const computerMove = this.getRandomMove();
     const hmac = this.calculateHMAC(userMove);
 
     console.log(`Computer's move: ${computerMove}`);
